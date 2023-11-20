@@ -1,0 +1,50 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+
+<body>
+
+    <form id="form" class="form" align="center">
+        
+        <div class="form-control">
+            <label>User name</label></br>
+            <input type="text" id="username" max="16" required>
+        </div>
+
+        <div class="form-control">
+            <label>Full name</label></br>
+            <input type="text" id="fullName" max="256">
+        </div>
+
+        <div class="form-control">
+            <label>Age</label></br>
+            <input type="number" id="age" min="18" required>
+        </div>
+
+        <div class="form-control">
+            <label>Email</label></br>
+            <input type="text" id="email" required unique>
+        </div>
+
+        <div class="form-control">
+            <label>Password</label></br>
+            <input type="password" id="pass1" required>
+        </div>
+
+        <div class="form-control">
+            <label>Repeat Password</label></br>
+            <input type="password" id="pass2" required>
+        </div>
+
+        <button>Login</button>
+    </form>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
