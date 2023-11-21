@@ -1,50 +1,93 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Login Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
 
+        form {
+            width: 300px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin: auto;
+            /* Center the form */
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .user-dropdown {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+    </style>
 </head>
 
 <body>
 
-    <form id="form" class="form" align="center">
+    <div class="user-dropdown" id="userDropdown">
+        <label for="users">Previous Users:</label>
+        <select id="users" onchange="loadUserData(this.value)">
+            <option value="">Select User</option>
+            
+        </select>
+    </div>
+
+    <form id="loginForm">
         
-        <div class="form-control">
-            <label>User name</label></br>
-            <input type="text" id="username" max="16" required>
-        </div>
+        <label for="username">Username (max 16 characters, no spaces at the beginning or end):</label>
+        <input type="text" id="username" name="username" required>
 
-        <div class="form-control">
-            <label>Full name</label></br>
-            <input type="text" id="fullName" max="256">
-        </div>
+        <label for="fullName">Full Name (max 256 characters):</label>
+        <input type="text" id="fullName" name="fullName" required>
 
-        <div class="form-control">
-            <label>Age</label></br>
-            <input type="number" id="age" min="18" required>
-        </div>
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" required>
 
-        <div class="form-control">
-            <label>Email</label></br>
-            <input type="text" id="email" required unique>
-        </div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
 
-        <div class="form-control">
-            <label>Password</label></br>
-            <input type="password" id="password" required>
-        </div>
+        <label for="password">Password (8-256 characters):</label>
+        <input type="password" id="password" name="password" required>
 
-        <div class="form-control">
-            <label>Repeat Password</label></br>
-            <input type="password" id="rePassword" required>
-        </div>
+        <label for="repeatPassword">Repeat Password:</label>
+        <input type="password" id="repeatPassword" name="repeatPassword" required>
 
-        <button>Login</button>
+        <button type="button" onclick="validateForm()">Login</button>
     </form>
-
-    <script src="script.js"></script>
-</body>
-
-</html>
+    <script type="text/javascript" src="script.js"></script>
