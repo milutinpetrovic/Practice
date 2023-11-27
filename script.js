@@ -1,10 +1,10 @@
 function validateForm() {
-    var email = document.getElementById('email').value.trim();
-    var username = document.getElementById('username').value.trim();
-    var fullName = document.getElementById('fullName').value;
-    var age = document.getElementById('age').value;
-    var password = document.getElementById('password').value;
-    var repeatPassword = document.getElementById('repeatPassword').value;
+    const username = document.getElementById('username').value.trim();
+    const fullName = document.getElementById('fullName').value;
+    const age = document.getElementById('age').value;
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+    const repeatPassword = document.getElementById('repeatPassword').value;
 
     // Simple validation
     if (email === '' || username === '' || fullName === '' || age === '' || password === '' || repeatPassword === '') {
@@ -49,7 +49,37 @@ function validateForm() {
         return;
     }
 
-    // Redirect to the success page
-    window.location.href = 'success.html';
+
+    //localStorage.setItem("username", username);
+    //localStorage.setItem("fullName", fullName);
+    //localStorage.setItem("age", age);
+    //localStorage.setItem("email", email);
+    //localStorage.setItem("password", password);
+    //localStorage.setItem("repeatPassword", repeatPassword);
+
+    let userRecords = new Array();
+    userRecords = JSON.parse(localStorage.getItem("users")) ? JSON.parse(localStorage.getItem("users")) : []
+    if (userRecords.some((v) => {
+        return v.email == email
+
+    })) {
+        alert("This email already exists!");
+
+    } else {
+        userRecords.push({
+            "username": username,
+            "fullName": fullName,
+            "age": age,
+            "email": email,
+            "password": password,
+            "repeatPassword": repeatPassword
+        })
+        localStorage.setItem("users", JSON.stringify(userRecords));
+        // Redirect to the success page
+        window.location.href = 'success.html';
+    }
+
+
+
 }
 
