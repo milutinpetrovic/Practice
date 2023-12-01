@@ -1,95 +1,103 @@
+<!-- index.html -->
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Form</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Registration</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
 
-        form {
-            width: 300px;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            margin: auto;
-            /* Center the form */
-        }
+    h1 {
+      text-align: center;
+    }
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-        }
+    .user-dropdown {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
 
-        input {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 10px;
-            box-sizing: border-box;
-        }
+    form {
+      width: 300px;
+      margin: 20px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      background-color: #f8f8f8;
+    }
 
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+    label {
+      display: block;
+      margin-bottom: 8px;
+    }
 
-        button:hover {
-            background-color: #45a049;
-        }
+    input,
+    select,
+    button {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 16px;
+      box-sizing: border-box;
+    }
 
-        .user-dropdown {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-        }
-    </style>
+    button {
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
 </head>
-
 <body>
+  <h1>User Registration</h1>
 
-    <div class="user-dropdown" id="userDropdown">
-        <label for="users">Previous Users:</label>
-        <select id="users" onchange="loadUserData(this.value)">
-            <option value="">Select User</option>
-            
-        </select>
-    </div>
+  <!-- User Selection Listbox -->
+  <div class="user-dropdown" id="userDropdown">
+    <label for="userList">Previous Users:</label>
+    <select id="userList" onchange="showLoggedInPage()">
+      <option value="">Select User</option>
+    </select>
+  </div>
 
-    <form id="loginForm">
-        
-        <label for="username">Username (max 16 characters, no spaces at the beginning or end):</label>
-        <input type="text" id="username" name="username" required>
+  <!-- User Registration Form -->
+  <form id="registrationForm">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required maxlength="16">
+    
+    <label for="fullName">Full Name:</label>
+    <input type="text" id="fullName" name="fullName" required maxlength="256">
+    
+    <label for="age">Age:</label>
+    <input type="number" id="age" name="age" required min="18">
+    
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+    
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required minlength="8" maxlength="256">
+    
+    <label for="repeatPassword">Repeat Password:</label>
+    <input type="password" id="repeatPassword" name="repeatPassword" required minlength="8" maxlength="256">
+    
+    <button type="button" onclick="registerUser()">Login</button>
+  </form>
 
-        <label for="fullName">Full Name (max 256 characters):</label>
-        <input type="text" id="fullName" name="fullName" required>
-
-        <label for="age">Age:</label>
-        <input type="number" id="age" name="age" required>
-
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-
-        <label for="password">Password (8-256 characters):</label>
-        <input type="password" id="password" name="password" required>
-
-        <label for="repeatPassword">Repeat Password:</label>
-        <input type="password" id="repeatPassword" name="repeatPassword" required>
-
-        <button type="button" onclick="validateForm()">Login</button>
-    </form>
-    <script type="text/javascript" src="script.js"></script>
- 
- 
+  <script src="script.js"></script>
+</body>
+</html>
