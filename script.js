@@ -102,7 +102,7 @@ function registerUser() {
 
     alert('User registered successfully!');
 }
-
+// TODO: fix
 // Function to update the user selection listbox
 function updateListBox() {
     const userList = document.getElementById('userList');
