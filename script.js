@@ -102,11 +102,17 @@ function registerUser() {
 
     alert('User registered successfully!');
 }
-// TODO: fix
+
 // Function to update the user selection listbox
 function updateListBox() {
     const userList = document.getElementById('userList');
     userList.innerHTML = '';
+
+    // "Select User" option
+    const selectUserOption = document.createElement('option');
+    selectUserOption.value = '';
+    selectUserOption.text = 'Select User';
+    userList.add(selectUserOption);
 
     const users = JSON.parse(localStorage.getItem('users')) || [];
     users.forEach(user => {
