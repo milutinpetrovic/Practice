@@ -103,11 +103,14 @@ function registerUser(): void {
     users.push(newUser);
     localStorage.setItem('users', JSON.stringify(users));
 
+
     // Clear the form
     (document.getElementById('registrationForm') as HTMLFormElement).reset();
 
+
     // Update user listbox
     updateListBox();
+
 
     alert('User registered successfully!');
   } catch (error) {
@@ -117,58 +120,54 @@ function registerUser(): void {
       console.error('Error registering user:', error);
       alert('An error occurred during registration. Please try again.');
     }
+    alert('User registered successfully!');
+  }
+}
+
+  // Function to update the user selection listbox
+  function updateListBox(): void {
+    const userList: HTMLSelectElement = document.getElementById('userList') as HTMLSelectElement;
+    userList.innerHTML = '';
+
+    // "Select User" option
+    const selectUserOption: HTMLOptionElement = document.createElement('option');
+    selectUserOption.value = '';
+    selectUserOption.text = 'Select User';
+    userList.add(selectUserOption);
+
+    const users: User[] = JSON.parse(localStorage.getItem('users') || '[]');
+    users.forEach(user => {
+      const option: HTMLOptionElement = document.createElement('option');
+      option.value = user.username;
+      option.text = user.username;
+      userList.add(option);
+    });
   }
 
-  // Update user listbox
+  // Function to show the "logged in" page
+  function showLoggedInPage(): void {
+    const selectedUsername: string = (document.getElementById('userList') as HTMLSelectElement).value;
+
+    // Display the "logged in" page
+    document.body.innerHTML = `
+    <h1>Hi, ${selectedUsername}!</h1>
+    <button onclick="logOut()">Log Out</button>
+    <button onclick="deleteAccount('${selectedUsername}')">Delete Account</button>
+  `;
+  }
+
+  // Function to log out (redirect to login page)
+  function logOut(): void {
+    window.location.reload(); // Reload the page (back to the login page)
+  }
+
+  // Function to delete user account
+  function deleteAccount(username: string): void {
+    const users: User[] = JSON.parse(localStorage.getItem('users') || '[]');
+    const updatedUsers: User[] = users.filter(user => user.username !== username);
+    localStorage.setItem('users', JSON.stringify(updatedUsers));
+    logOut(); // Redirect to the login page after deleting the account
+  }
+
+  // Initial setup
   updateListBox();
-
-  //alert('User registered successfully!');
-}
-
-// Function to update the user selection listbox
-function updateListBox(): void {
-  const userList: HTMLSelectElement = document.getElementById('userList') as HTMLSelectElement;
-  userList.innerHTML = '';
-
-  // "Select User" option
-  const selectUserOption: HTMLOptionElement = document.createElement('option');
-  selectUserOption.value = '';
-  selectUserOption.text = 'Select User';
-  userList.add(selectUserOption);
-
-  const users: User[] = JSON.parse(localStorage.getItem('users') || '[]');
-  users.forEach(user => {
-    const option: HTMLOptionElement = document.createElement('option');
-    option.value = user.username;
-    option.text = user.username;
-    userList.add(option);
-  });
-}
-
-// Function to show the "logged in" page
-function showLoggedInPage(): void {
-  const selectedUsername: string = (document.getElementById('userList') as HTMLSelectElement).value;
-
-  // Display the "logged in" page
-  document.body.innerHTML = `
-      <h1>Hi, ${selectedUsername}!</h1>
-      <button onclick="logOut()">Log Out</button>
-      <button onclick="deleteAccount('${selectedUsername}')">Delete Account</button>
-    `;
-}
-
-// Function to log out (redirect to login page)
-function logOut(): void {
-  window.location.reload(); // Reload the page (back to the login page)
-}
-
-// Function to delete user account
-function deleteAccount(username: string): void {
-  const users: User[] = JSON.parse(localStorage.getItem('users') || '[]');
-  const updatedUsers: User[] = users.filter(user => user.username !== username);
-  localStorage.setItem('users', JSON.stringify(updatedUsers));
-  logOut(); // Redirect to the login page after deleting the account
-}
-
-// Initial setup
-updateListBox();
