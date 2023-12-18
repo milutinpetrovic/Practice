@@ -53,14 +53,35 @@ function isValidEmail(email: string): boolean {
   return emailRegex.test(email);
 }
 
+function parseElement(id, elementType: "input" | "select" | "form") {
+  const findElement = document.getElementById(id);
+
+  if (!findElement) {
+    return null;
+  }
+
+  if (elementType === "input" && findElement instanceof HTMLInputElement) {
+    return findElement;
+
+  } else if (elementType === "select" && findElement instanceof HTMLSelectElement) {
+    return findElement;
+    
+  } else if (elementType === "form" && findElement instanceof HTMLFormElement) {
+    return findElement;
+  }
+
+  return null;
+}
+
+
 // Function to register a new user
 function registerUser(): void {
-  const username: string = (document.getElementById('username') as HTMLInputElement).value.trim();
-  const fullName: string = (document.getElementById('fullName') as HTMLInputElement).value.trim();
-  const age: number = parseInt((document.getElementById('age') as HTMLInputElement).value, 10);
-  const email: string = (document.getElementById('email') as HTMLInputElement).value.trim();
-  const password: string = (document.getElementById('password') as HTMLInputElement).value;
-  const repeatPassword: string = (document.getElementById('repeatPassword') as HTMLInputElement).value;
+  const username = (parseElement("username", "input"))?.value.trim();
+  const fullName = (parseElement("fullName", "input"))?.value.trim();
+  const age = parseInt((parseElement("age", "input")?.value || '0'), 10);
+  const email = (parseElement("email", "input"))?.value.trim();
+  const password = (parseElement("password", "input"))?.value;
+  const repeatPassword = (parseElement("repeatPassword", "input"))?.value;
 
 
   // Create user object
@@ -73,7 +94,9 @@ function registerUser(): void {
     writeToLocalStorage('users', users);
 
     // Clear the form
-    (document.getElementById('registrationForm') as HTMLFormElement).reset();
+    //(document.getElementById('registrationForm') as HTMLFormElement).reset();
+    //ne znam da li je ovo okej
+    parseElement('registrationForm', "form").onreset;
 
     // Update user listbox
     updateListBox();
@@ -91,7 +114,9 @@ function registerUser(): void {
 
 // Function to update the user selection listbox
 function updateListBox(): void {
-  const userList: HTMLSelectElement = document.getElementById('userList') as HTMLSelectElement;
+  //const userList: HTMLSelectElement = document.getElementById('userList') as HTMLSelectElement;
+  const userList = parseElement("userList", "select");
+
   userList.innerHTML = '';
 
   // "Select User" option
@@ -111,7 +136,8 @@ function updateListBox(): void {
 
 // Function to show the "logged in" page
 function showLoggedInPage(): void {
-  const selectedUsername: string = (document.getElementById('userList') as HTMLSelectElement).value;
+  //const selectedUsername: string = (document.getElementById('userList') as HTMLSelectElement).value;
+  const selectedUsername = (parseElement("userList", "select"))?.value;
 
   // Display the "logged in" page
   document.body.innerHTML = `
