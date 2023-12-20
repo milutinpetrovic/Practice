@@ -65,7 +65,7 @@ function parseElement(id, elementType: "input" | "select" | "form") {
 
   } else if (elementType === "select" && findElement instanceof HTMLSelectElement) {
     return findElement;
-    
+
   } else if (elementType === "form" && findElement instanceof HTMLFormElement) {
     return findElement;
   }
@@ -114,24 +114,23 @@ function registerUser(): void {
 
 // Function to update the user selection listbox
 function updateListBox(): void {
-  //const userList: HTMLSelectElement = document.getElementById('userList') as HTMLSelectElement;
   const userList = parseElement("userList", "select");
 
-  userList.innerHTML = '';
+  if (userList instanceof HTMLSelectElement) {
+    // "Select User" option
+    const selectUserOption: HTMLOptionElement = document.createElement('option');
+    selectUserOption.value = '';
+    selectUserOption.text = 'Select User';
+    userList.add(selectUserOption);
 
-  // "Select User" option
-  const selectUserOption: HTMLOptionElement = document.createElement('option');
-  selectUserOption.value = '';
-  selectUserOption.text = 'Select User';
-  userList.add(selectUserOption);
-
-  const users: User[] = readFromLocalStorage('users');
-  users.forEach((user) => {
-    const option: HTMLOptionElement = document.createElement('option');
-    option.value = user.username;
-    option.text = user.username;
-    userList.add(option);
-  });
+    const users: User[] = readFromLocalStorage('users');
+    users.forEach((user) => {
+      const option: HTMLOptionElement = document.createElement('option');
+      option.value = user.username;
+      option.text = user.username;
+      userList.add(option);
+    });
+  }
 }
 
 // Function to show the "logged in" page
